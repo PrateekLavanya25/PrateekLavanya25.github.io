@@ -4,101 +4,209 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prateek Lavanya · Game Designer</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #0f0f1a; --surface: #1a1a2e; --surface2: #22223b;
-    --cyan: #00f5d4; --cyan-dim: rgba(0,245,212,0.12);
-    --text: #f0ede8; --text-muted: #9a9aac;
-    --border: rgba(255,255,255,0.08); --accent2: #f7b731;
+    --bg: #0a0118;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.08);
+    --magenta: #ff2e97;
+    --cyan: #00e5ff;
+    --amber: #ffb800;
+    --grad: linear-gradient(135deg, #ff2e97 0%, #7b2eff 50%, #00e5ff 100%);
+    --text: #f5f2fa;
+    --text-muted: #a89fc0;
+    --border: rgba(255,255,255,0.1);
   }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(123,46,255,0.25), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(255,46,151,0.18), transparent),
+      radial-gradient(ellipse 70% 50% at 50% 110%, rgba(0,229,255,0.12), transparent);
+    background-attachment: fixed;
+    color: var(--text); line-height: 1.6; font-size: 15px;
+  }
 
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(15,15,26,0.92); backdrop-filter: blur(12px);
+    background: rgba(10,1,24,0.8);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 56px;
+    padding: 0 2rem; height: 58px;
   }
-  .nav-logo { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; color: var(--cyan); letter-spacing: 2px; }
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700;
+    letter-spacing: 2px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
   .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-  .nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--cyan); }
+  .nav-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--magenta); }
 
-  section { padding: 80px 2rem; max-width: 900px; margin: 0 auto; }
+  section { padding: 90px 2rem; max-width: 920px; margin: 0 auto; }
 
+  /* HERO */
   #hero {
     min-height: 100vh; display: flex; flex-direction: column;
     justify-content: center; align-items: flex-start;
-    padding-top: 100px; padding-bottom: 60px;
-    max-width: 900px; margin: 0 auto;
+    padding-top: 110px; padding-bottom: 60px;
+    max-width: 920px; margin: 0 auto;
+    position: relative;
   }
-  .hero-tag { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem; font-family: 'Rajdhani', sans-serif; }
-  h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 700; line-height: 1.05; color: var(--text); margin-bottom: 0.25rem; }
-  .hero-sub { font-family: 'Rajdhani', sans-serif; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 500; color: var(--cyan); margin-bottom: 1.5rem; }
-  .hero-bio { font-size: 16px; color: var(--text-muted); max-width: 560px; margin-bottom: 2.5rem; line-height: 1.7; }
-  .xp-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-family: 'Rajdhani', sans-serif; }
-  .xp-bar-track { width: 280px; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
-  .xp-bar-fill { height: 100%; background: var(--cyan); border-radius: 3px; width: 0%; transition: width 1.8s cubic-bezier(.4,0,.2,1) 0.4s; }
-  .hero-cta { display: flex; gap: 12px; margin-top: 2rem; flex-wrap: wrap; }
-  .btn-primary { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; border: 1.5px solid var(--cyan); color: var(--cyan); background: transparent; cursor: pointer; text-decoration: none; transition: background 0.2s, color 0.2s; display: inline-block; }
-  .btn-primary:hover { background: var(--cyan); color: var(--bg); }
-  .btn-ghost { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; border: 1.5px solid var(--border); color: var(--text-muted); background: transparent; cursor: pointer; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
-  .btn-ghost:hover { border-color: var(--text-muted); color: var(--text); }
+  .hero-tag {
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    color: var(--cyan); margin-bottom: 1.25rem;
+    padding: 6px 14px; border: 1px solid rgba(0,229,255,0.35); border-radius: 100px;
+    background: rgba(0,229,255,0.07);
+  }
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.4rem, 6.5vw, 4.8rem);
+    font-weight: 900; line-height: 1.08;
+    margin-bottom: 0.5rem;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 24px rgba(255,46,151,0.35));
+  }
+  .hero-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 600; color: var(--text); margin-bottom: 1.5rem; letter-spacing: 1px;
+  }
+  .hero-bio { font-size: 16px; color: var(--text-muted); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.75; }
 
-  .chapter-label { font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.5rem; }
-  h2 { font-family: 'Rajdhani', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: 2.5rem; line-height: 1.1; }
+  /* XP Bar */
+  .xp-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
+  .xp-bar-track { width: 300px; height: 8px; background: var(--surface2); border-radius: 100px; overflow: hidden; border: 1px solid var(--border); }
+  .xp-bar-fill { height: 100%; background: var(--grad); border-radius: 100px; width: 0%; transition: width 1.8s cubic-bezier(.4,0,.2,1) 0.4s; box-shadow: 0 0 12px rgba(255,46,151,0.6); }
 
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .skill-card { background: var(--surface); border: 1px solid var(--border); padding: 1.25rem; border-radius: 4px; transition: border-color 0.2s, transform 0.2s; }
-  .skill-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
-  .skill-icon { font-size: 24px; margin-bottom: 10px; }
-  .skill-title { font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 1px; margin-bottom: 6px; color: var(--text); }
-  .skill-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-  .skill-bar-wrap { margin-top: 10px; height: 3px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
-  .skill-bar { height: 100%; background: var(--cyan); border-radius: 2px; }
+  .hero-cta { display: flex; gap: 14px; margin-top: 2.5rem; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 12px 28px; border: none; color: #fff;
+    background: var(--grad); border-radius: 6px;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    box-shadow: 0 4px 24px rgba(255,46,151,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,46,151,0.55); }
+  .btn-ghost {
+    font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 12px 28px; border: 1.5px solid var(--border); color: var(--text-muted);
+    background: transparent; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
 
+  /* CHAPTER HEADING */
+  .chapter-label {
+    font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 5px; text-transform: uppercase;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: 'Orbitron', sans-serif; font-size: 1.9rem; font-weight: 700;
+    color: var(--text); margin-bottom: 2.5rem; line-height: 1.15;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .skill-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 1.4rem; border-radius: 14px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .skill-card:hover { border-color: rgba(255,46,151,0.5); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(123,46,255,0.25); }
+  .skill-icon { font-size: 26px; margin-bottom: 12px; }
+  .skill-title { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; color: var(--text); }
+  .skill-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .skill-bar-wrap { margin-top: 12px; height: 4px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
+  .skill-bar { height: 100%; background: var(--grad); border-radius: 100px; }
+
+  /* PROJECTS */
   .project-list { display: flex; flex-direction: column; gap: 2rem; }
-  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; transition: border-color 0.2s; }
-  .project-card:hover { border-color: rgba(0,245,212,0.4); }
-  .project-thumb { aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: var(--surface2); }
-  .project-info { padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
-  .project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0.75rem; }
-  .tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; background: var(--cyan-dim); color: var(--cyan); font-family: 'Rajdhani', sans-serif; font-weight: 600; }
-  .project-title { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
-  .project-role { font-size: 12px; color: var(--accent2); letter-spacing: 1px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; }
-  .project-link { font-size: 13px; color: var(--cyan); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .project-card:hover { border-color: rgba(0,229,255,0.45); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,229,255,0.15); }
+  .project-thumb {
+    aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; background: rgba(255,255,255,0.03);
+  }
+  .project-info { padding: 1.6rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0.85rem; }
+  .tag {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+    background: rgba(255,46,151,0.12); color: var(--magenta);
+    border: 1px solid rgba(255,46,151,0.3);
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  }
+  .project-title { font-family: 'Rajdhani', sans-serif; font-size: 1.45rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+  .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+  .project-role { font-size: 12px; color: var(--amber); letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; font-weight: 700; margin-bottom: 4px; }
+  .project-link { font-size: 13px; color: var(--cyan); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
   .project-link:hover { text-decoration: underline; }
 
-  .exp-list { display: flex; flex-direction: column; gap: 0; border-left: 1px solid var(--border); padding-left: 2rem; }
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; border-left: 2px solid rgba(123,46,255,0.4); padding-left: 2rem; }
   .exp-item { position: relative; padding-bottom: 2.5rem; }
   .exp-item:last-child { padding-bottom: 0; }
-  .exp-dot { position: absolute; left: -2.4rem; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); border: 2px solid var(--bg); }
-  .exp-period { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; font-family: 'Rajdhani', sans-serif; }
-  .exp-role { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-  .exp-company { font-size: 14px; color: var(--cyan); margin-bottom: 0.5rem; }
+  .exp-dot {
+    position: absolute; left: -2.48rem; top: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--grad); border: 2px solid var(--bg);
+    box-shadow: 0 0 10px rgba(255,46,151,0.7);
+  }
+  .exp-period { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
+  .exp-role { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .exp-company { font-size: 14px; color: var(--magenta); margin-bottom: 0.6rem; font-weight: 500; }
   .exp-bullets { list-style: none; }
-  .exp-bullets li { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; padding-left: 14px; position: relative; }
-  .exp-bullets li::before { content: "▸"; position: absolute; left: 0; color: var(--cyan); font-size: 10px; top: 2px; }
+  .exp-bullets li { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; padding-left: 16px; position: relative; line-height: 1.6; }
+  .exp-bullets li::before { content: "▸"; position: absolute; left: 0; color: var(--amber); font-size: 11px; top: 2px; }
 
-  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s, transform 0.2s; display: flex; align-items: center; gap: 12px; }
-  .contact-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
-  .contact-icon { font-size: 20px; }
-  .contact-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; }
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.4rem; text-decoration: none;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .contact-card:hover { border-color: rgba(255,184,0,0.5); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(255,184,0,0.15); }
+  .contact-icon { font-size: 22px; }
+  .contact-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
   .contact-value { font-size: 14px; color: var(--text); font-weight: 500; }
 
-  footer { border-top: 1px solid var(--border); text-align: center; padding: 2rem; font-size: 12px; color: var(--text-muted); letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; }
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center; padding: 2rem;
+    font-size: 12px; color: var(--text-muted); letter-spacing: 1.5px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 500;
+  }
   .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
   @media (max-width: 600px) {
     .project-card { grid-template-columns: 1fr; }
     nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
     section { padding: 60px 1rem; }
-    #hero { padding: 100px 1rem 60px; }
+    #hero { padding: 110px 1rem 60px; }
   }
 </style>
 </head>
