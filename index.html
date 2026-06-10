@@ -910,20 +910,27 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   setTimeout(addTilt, 300);
 
-  // Scroll-reveal sections & cards (after render completes)
+  // Scroll-reveal cards only (headings stay always visible). Failsafe forces
+  // everything visible after 2s no matter what, so nothing can get stuck hidden.
   setTimeout(() => {
-    const revealEls = document.querySelectorAll('section h2, .skill-card, .project-card, .exp-item, .contact-card');
+    const revealEls = document.querySelectorAll('.skill-card, .project-card, .contact-card');
     const revObs = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (en.isIntersecting) { en.target.classList.add('in'); revObs.unobserve(en.target); }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
     revealEls.forEach(el => {
       const r = el.getBoundingClientRect();
       if (r.top < window.innerHeight && r.bottom > 0) return; // skip already-visible
       el.classList.add('reveal');
       revObs.observe(el);
     });
+    // Failsafe: nothing stays hidden longer than 2s after it nears the viewport
+    const failsafe = () => document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 100) el.classList.add('in');
+    });
+    setInterval(failsafe, 700);
   }, 350);
 
   // Konami code easter egg
