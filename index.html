@@ -4,49 +4,71 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prateek Lavanya · Game Designer</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #0a0118;
+    --bg: #070112;
     --surface: rgba(255,255,255,0.04);
-    --surface2: rgba(255,255,255,0.08);
+    --surface2: rgba(255,255,255,0.09);
     --magenta: #ff2e97;
     --cyan: #00e5ff;
     --amber: #ffb800;
+    --green: #39ff88;
     --grad: linear-gradient(135deg, #ff2e97 0%, #7b2eff 50%, #00e5ff 100%);
     --text: #f5f2fa;
     --text-muted: #a89fc0;
     --border: rgba(255,255,255,0.1);
   }
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
     background-image:
-      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(123,46,255,0.25), transparent),
-      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(255,46,151,0.18), transparent),
-      radial-gradient(ellipse 70% 50% at 50% 110%, rgba(0,229,255,0.12), transparent);
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(123,46,255,0.28), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 10%, rgba(255,46,151,0.2), transparent),
+      radial-gradient(ellipse 70% 50% at 50% 110%, rgba(0,229,255,0.14), transparent);
     background-attachment: fixed;
     color: var(--text); line-height: 1.6; font-size: 15px;
+    position: relative;
   }
+  /* Pixel grid overlay */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  nav, section, footer { position: relative; z-index: 1; }
 
-  /* NAV */
+  /* NAV — arcade HUD bar */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,1,24,0.8);
+    background: rgba(7,1,18,0.85);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 2rem; height: 58px;
   }
+  nav::after {
+    content: ""; position: absolute; bottom: -1px; left: 0; height: 2px; width: 100%;
+    background: var(--grad); opacity: 0.6;
+  }
   .nav-logo {
-    font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700;
-    letter-spacing: 2px;
+    font-family: 'Press Start 2P', monospace; font-size: 11px;
+    letter-spacing: 1px;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-  .nav-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--magenta); }
+  .nav-links { display: flex; gap: 1.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 11px; color: var(--text-muted); text-decoration: none;
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+    font-family: 'Rajdhani', sans-serif;
+    padding: 5px 10px; border: 1px solid transparent; border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); border-color: rgba(0,229,255,0.4); background: rgba(0,229,255,0.07); box-shadow: 0 0 12px rgba(0,229,255,0.25); }
 
   section { padding: 90px 2rem; max-width: 920px; margin: 0 auto; }
 
@@ -56,14 +78,19 @@
     justify-content: center; align-items: flex-start;
     padding-top: 110px; padding-bottom: 60px;
     max-width: 920px; margin: 0 auto;
-    position: relative;
   }
   .hero-tag {
-    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
-    font-family: 'Rajdhani', sans-serif; font-weight: 600;
-    color: var(--cyan); margin-bottom: 1.25rem;
-    padding: 6px 14px; border: 1px solid rgba(0,229,255,0.35); border-radius: 100px;
-    background: rgba(0,229,255,0.07);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Press Start 2P', monospace;
+    color: var(--green); margin-bottom: 1.5rem;
+    padding: 8px 16px; border: 1px solid rgba(57,255,136,0.4); border-radius: 4px;
+    background: rgba(57,255,136,0.06);
+    box-shadow: 0 0 16px rgba(57,255,136,0.15), inset 0 0 16px rgba(57,255,136,0.05);
+    animation: blink-border 2.4s ease-in-out infinite;
+  }
+  @keyframes blink-border {
+    0%, 100% { border-color: rgba(57,255,136,0.4); box-shadow: 0 0 16px rgba(57,255,136,0.15), inset 0 0 16px rgba(57,255,136,0.05); }
+    50% { border-color: rgba(57,255,136,0.9); box-shadow: 0 0 24px rgba(57,255,136,0.35), inset 0 0 20px rgba(57,255,136,0.1); }
   }
   h1 {
     font-family: 'Orbitron', sans-serif;
@@ -71,78 +98,118 @@
     font-weight: 900; line-height: 1.08;
     margin-bottom: 0.5rem;
     background: var(--grad);
+    background-size: 200% 200%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 0 24px rgba(255,46,151,0.35));
+    filter: drop-shadow(0 0 28px rgba(255,46,151,0.4));
+    animation: grad-shift 6s ease infinite;
+  }
+  @keyframes grad-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
   .hero-sub {
     font-family: 'Rajdhani', sans-serif;
     font-size: clamp(1.3rem, 3vw, 2rem);
-    font-weight: 600; color: var(--text); margin-bottom: 1.5rem; letter-spacing: 1px;
+    font-weight: 700; color: var(--text); margin-bottom: 1.5rem; letter-spacing: 2px;
+    text-transform: uppercase;
   }
+  .hero-sub::after { content: "_"; color: var(--cyan); animation: cursor-blink 1s steps(1) infinite; }
+  @keyframes cursor-blink { 50% { opacity: 0; } }
   .hero-bio { font-size: 16px; color: var(--text-muted); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.75; }
 
-  /* XP Bar */
-  .xp-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
-  .xp-bar-track { width: 300px; height: 8px; background: var(--surface2); border-radius: 100px; overflow: hidden; border: 1px solid var(--border); }
-  .xp-bar-fill { height: 100%; background: var(--grad); border-radius: 100px; width: 0%; transition: width 1.8s cubic-bezier(.4,0,.2,1) 0.4s; box-shadow: 0 0 12px rgba(255,46,151,0.6); }
+  /* XP Bar — game HUD style */
+  .xp-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; font-family: 'Press Start 2P', monospace; }
+  .xp-bar-track {
+    width: 320px; height: 14px; background: var(--surface2);
+    border-radius: 3px; overflow: hidden;
+    border: 1px solid rgba(255,184,0,0.4);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), 0 0 12px rgba(255,184,0,0.15);
+  }
+  .xp-bar-fill {
+    height: 100%; border-radius: 2px; width: 0%;
+    background: repeating-linear-gradient(45deg, var(--amber) 0 10px, #ffd34d 10px 20px);
+    transition: width 1.8s cubic-bezier(.4,0,.2,1) 0.4s;
+    box-shadow: 0 0 14px rgba(255,184,0,0.6);
+  }
 
   .hero-cta { display: flex; gap: 14px; margin-top: 2.5rem; flex-wrap: wrap; }
   .btn-primary {
-    font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    padding: 12px 28px; border: none; color: #fff;
-    background: var(--grad); border-radius: 6px;
+    font-family: 'Press Start 2P', monospace; font-size: 11px;
+    padding: 16px 26px; border: none; color: #fff;
+    background: var(--grad); border-radius: 4px;
     cursor: pointer; text-decoration: none; display: inline-block;
-    box-shadow: 0 4px 24px rgba(255,46,151,0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 0 rgba(123,46,255,0.8), 0 8px 28px rgba(255,46,151,0.4);
+    transition: transform 0.12s, box-shadow 0.12s;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,46,151,0.55); }
+  .btn-primary:hover { transform: translateY(2px); box-shadow: 0 2px 0 rgba(123,46,255,0.8), 0 6px 20px rgba(255,46,151,0.5); }
   .btn-ghost {
-    font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    padding: 12px 28px; border: 1.5px solid var(--border); color: var(--text-muted);
-    background: transparent; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block;
-    transition: border-color 0.2s, color 0.2s;
+    font-family: 'Press Start 2P', monospace; font-size: 11px;
+    padding: 16px 26px; border: 2px solid var(--border); color: var(--text-muted);
+    background: transparent; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block;
+    box-shadow: 0 4px 0 rgba(255,255,255,0.08);
+    transition: all 0.12s;
   }
-  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,229,255,0.3), 0 0 18px rgba(0,229,255,0.2); }
 
-  /* CHAPTER HEADING */
+  /* CHAPTER HEADING — quest log style */
   .chapter-label {
-    font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700;
-    letter-spacing: 5px; text-transform: uppercase;
-    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-    margin-bottom: 0.5rem;
+    font-family: 'Press Start 2P', monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid rgba(57,255,136,0.35); border-radius: 4px;
+    background: rgba(57,255,136,0.06);
   }
+  .chapter-label::before { content: "▶ "; }
   h2 {
     font-family: 'Orbitron', sans-serif; font-size: 1.9rem; font-weight: 700;
     color: var(--text); margin-bottom: 2.5rem; line-height: 1.15;
+    display: flex; align-items: center; gap: 16px;
   }
+  h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,46,151,0.5), transparent); }
 
-  /* SKILLS GRID */
+  /* SKILLS GRID — stat cards */
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
   .skill-card {
     background: var(--surface); border: 1px solid var(--border);
-    padding: 1.4rem; border-radius: 14px;
+    padding: 1.4rem; border-radius: 10px;
     backdrop-filter: blur(8px);
+    position: relative;
     transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
   }
-  .skill-card:hover { border-color: rgba(255,46,151,0.5); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(123,46,255,0.25); }
+  .skill-card::before, .skill-card::after {
+    content: ""; position: absolute; width: 14px; height: 14px;
+    border-color: rgba(0,229,255,0.5); border-style: solid; opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .skill-card::before { top: 6px; left: 6px; border-width: 2px 0 0 2px; }
+  .skill-card::after { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; }
+  .skill-card:hover { border-color: rgba(0,229,255,0.45); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,229,255,0.18); }
+  .skill-card:hover::before, .skill-card:hover::after { opacity: 1; }
   .skill-icon { font-size: 26px; margin-bottom: 12px; }
   .skill-title { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; color: var(--text); }
   .skill-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-  .skill-bar-wrap { margin-top: 12px; height: 4px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
-  .skill-bar { height: 100%; background: var(--grad); border-radius: 100px; }
+  .skill-bar-wrap { margin-top: 12px; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+  .skill-bar { height: 100%; background: var(--grad); border-radius: 3px; box-shadow: 0 0 8px rgba(255,46,151,0.5); }
 
-  /* PROJECTS */
+  /* PROJECTS — game cartridge cards */
   .project-list { display: flex; flex-direction: column; gap: 2rem; }
   .project-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; overflow: hidden;
+    border-radius: 12px; overflow: hidden;
     display: grid; grid-template-columns: 1fr 1fr;
     backdrop-filter: blur(8px);
+    position: relative;
     transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
   }
-  .project-card:hover { border-color: rgba(0,229,255,0.45); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,229,255,0.15); }
+  .project-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--grad); opacity: 0; transition: opacity 0.25s;
+  }
+  .project-card:hover { border-color: rgba(255,46,151,0.5); transform: translateY(-4px); box-shadow: 0 18px 44px rgba(255,46,151,0.18); }
+  .project-card:hover::before { opacity: 1; }
   .project-thumb {
     aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
     font-size: 4rem; background: rgba(255,255,255,0.03);
@@ -151,62 +218,71 @@
   .project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0.85rem; }
   .tag {
     font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 4px 12px; border-radius: 100px;
+    padding: 4px 12px; border-radius: 3px;
     background: rgba(255,46,151,0.12); color: var(--magenta);
-    border: 1px solid rgba(255,46,151,0.3);
+    border: 1px solid rgba(255,46,151,0.35);
     font-family: 'Rajdhani', sans-serif; font-weight: 700;
   }
   .project-title { font-family: 'Rajdhani', sans-serif; font-size: 1.45rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
   .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
   .project-role { font-size: 12px; color: var(--amber); letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; font-weight: 700; margin-bottom: 4px; }
-  .project-link { font-size: 13px; color: var(--cyan); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
-  .project-link:hover { text-decoration: underline; }
+  .project-link {
+    font-size: 12px; color: var(--cyan); text-decoration: none;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .project-link::before { content: "🎮"; font-size: 13px; }
+  .project-link:hover { text-shadow: 0 0 12px rgba(0,229,255,0.7); }
 
-  /* EXPERIENCE */
-  .exp-list { display: flex; flex-direction: column; gap: 0; border-left: 2px solid rgba(123,46,255,0.4); padding-left: 2rem; }
+  /* EXPERIENCE — quest timeline */
+  .exp-list { display: flex; flex-direction: column; gap: 0; border-left: 2px dashed rgba(123,46,255,0.5); padding-left: 2rem; }
   .exp-item { position: relative; padding-bottom: 2.5rem; }
   .exp-item:last-child { padding-bottom: 0; }
   .exp-dot {
-    position: absolute; left: -2.48rem; top: 4px;
-    width: 12px; height: 12px; border-radius: 50%;
+    position: absolute; left: -2.55rem; top: 2px;
+    width: 16px; height: 16px; border-radius: 4px;
     background: var(--grad); border: 2px solid var(--bg);
-    box-shadow: 0 0 10px rgba(255,46,151,0.7);
+    transform: rotate(45deg);
+    box-shadow: 0 0 12px rgba(255,46,151,0.8);
   }
-  .exp-period { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
+  .exp-period { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 5px; font-family: 'Press Start 2P', monospace; }
   .exp-role { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
   .exp-company { font-size: 14px; color: var(--magenta); margin-bottom: 0.6rem; font-weight: 500; }
   .exp-bullets { list-style: none; }
-  .exp-bullets li { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; padding-left: 16px; position: relative; line-height: 1.6; }
-  .exp-bullets li::before { content: "▸"; position: absolute; left: 0; color: var(--amber); font-size: 11px; top: 2px; }
+  .exp-bullets li { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; padding-left: 18px; position: relative; line-height: 1.6; }
+  .exp-bullets li::before { content: "+"; position: absolute; left: 0; color: var(--green); font-weight: 700; font-family: 'Press Start 2P', monospace; font-size: 10px; top: 3px; }
 
-  /* CONTACT */
+  /* CONTACT — player connect */
   .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
   .contact-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.4rem; text-decoration: none;
+    border-radius: 10px; padding: 1.4rem; text-decoration: none;
     backdrop-filter: blur(8px);
-    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    transition: all 0.25s;
     display: flex; align-items: center; gap: 14px;
   }
-  .contact-card:hover { border-color: rgba(255,184,0,0.5); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(255,184,0,0.15); }
+  .contact-card:hover { border-color: rgba(57,255,136,0.5); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(57,255,136,0.15); }
   .contact-icon { font-size: 22px; }
   .contact-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
   .contact-value { font-size: 14px; color: var(--text); font-weight: 500; }
 
   footer {
     border-top: 1px solid var(--border);
-    text-align: center; padding: 2rem;
-    font-size: 12px; color: var(--text-muted); letter-spacing: 1.5px;
-    font-family: 'Rajdhani', sans-serif; font-weight: 500;
+    text-align: center; padding: 2.2rem;
+    font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px;
+    font-family: 'Press Start 2P', monospace; line-height: 2;
   }
   .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
   @media (max-width: 600px) {
     .project-card { grid-template-columns: 1fr; }
     nav { padding: 0 1rem; }
-    .nav-links { gap: 1rem; }
+    .nav-links { gap: 0.5rem; }
+    .nav-links a { padding: 4px 6px; font-size: 10px; }
     section { padding: 60px 1rem; }
     #hero { padding: 110px 1rem 60px; }
+    .xp-bar-track { width: 100%; max-width: 320px; }
   }
 </style>
 </head>
@@ -404,7 +480,7 @@ const PORTFOLIO = {
 <hr class="section-divider" />
 
 <section id="skills">
-  <div class="chapter-label">Chapter 01</div>
+  <div class="chapter-label">LEVEL 01</div>
   <h2>Skills &amp; Specialisations</h2>
   <div class="skills-grid"></div>
 </section>
@@ -412,7 +488,7 @@ const PORTFOLIO = {
 <hr class="section-divider" />
 
 <section id="work">
-  <div class="chapter-label">Chapter 02</div>
+  <div class="chapter-label">LEVEL 02</div>
   <h2>Selected Projects</h2>
   <div class="project-list"></div>
 </section>
@@ -420,7 +496,7 @@ const PORTFOLIO = {
 <hr class="section-divider" />
 
 <section id="pro-work">
-  <div class="chapter-label">Chapter 03</div>
+  <div class="chapter-label">LEVEL 03</div>
   <h2>Professional Projects</h2>
   <div class="pro-project-list project-list"></div>
 </section>
@@ -429,7 +505,7 @@ const PORTFOLIO = {
 <hr class="section-divider" />
 
 <section id="experience">
-  <div class="chapter-label">Chapter 04</div>
+  <div class="chapter-label">LEVEL 04</div>
   <h2>Experience</h2>
   <div class="exp-list"></div>
 </section>
@@ -437,7 +513,7 @@ const PORTFOLIO = {
 <hr class="section-divider" />
 
 <section id="level-breakdown">
-  <div class="chapter-label">Chapter 05</div>
+  <div class="chapter-label">LEVEL 05</div>
   <h2>Game Level Breakdown</h2>
   <div class="level-breakdown-list project-list"></div>
 </section>
@@ -445,7 +521,7 @@ const PORTFOLIO = {
 <hr class="section-divider" />
 
 <section id="contact">
-  <div class="chapter-label">Chapter 06</div>
+  <div class="chapter-label">LEVEL 06</div>
   <h2>Get in Touch</h2>
   <div class="contact-grid"></div>
 </section>
