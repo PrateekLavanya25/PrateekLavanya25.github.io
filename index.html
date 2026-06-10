@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- BUILD v3.1-clean -->
 <title>Prateek Lavanya · Game Designer</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -166,9 +167,8 @@
   h2 {
     font-family: 'Orbitron', sans-serif; font-size: 1.9rem; font-weight: 700;
     color: var(--text); margin-bottom: 2.5rem; line-height: 1.15;
-    display: flex; align-items: center; gap: 16px;
   }
-  h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,46,151,0.5), transparent); }
+
 
   /* SKILLS GRID — stat cards */
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
@@ -431,10 +431,6 @@
     50% { transform: skewX(-0.6deg) translateX(2px); }
     75% { transform: skewX(0.4deg); }
   }
-
-  /* Scroll reveal */
-  .reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.7,.3,1); }
-  .reveal.in { opacity: 1; transform: translateY(0); }
 
   /* 3D tilt cards */
   .project-card { transform-style: preserve-3d; will-change: transform; }
@@ -909,29 +905,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
   setTimeout(addTilt, 300);
-
-  // Scroll-reveal cards only (headings stay always visible). Failsafe forces
-  // everything visible after 2s no matter what, so nothing can get stuck hidden.
-  setTimeout(() => {
-    const revealEls = document.querySelectorAll('.skill-card, .project-card, .contact-card');
-    const revObs = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.isIntersecting) { en.target.classList.add('in'); revObs.unobserve(en.target); }
-      });
-    }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
-    revealEls.forEach(el => {
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) return; // skip already-visible
-      el.classList.add('reveal');
-      revObs.observe(el);
-    });
-    // Failsafe: nothing stays hidden longer than 2s after it nears the viewport
-    const failsafe = () => document.querySelectorAll('.reveal:not(.in)').forEach(el => {
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight + 100) el.classList.add('in');
-    });
-    setInterval(failsafe, 700);
-  }, 350);
 
   // Konami code easter egg
   const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
